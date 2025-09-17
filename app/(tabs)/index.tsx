@@ -24,7 +24,7 @@ export default function HomeScreen() {
 
   async function startVerify() {
     if (!phone.trim()) {
-      Alert.alert('Phone required', 'Enter a phone number in E.164 format, e.g. +491752350401');
+      Alert.alert('Enter your phone number to subscribe to water outage alerts', 'Enter a phone number in E.164 format, e.g. +491752350401');
       return;
     }
     try {

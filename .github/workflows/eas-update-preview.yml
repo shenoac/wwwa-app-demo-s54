@@ -1,0 +1,36 @@
+name: EAS Update (preview)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm ci
+
+      # Optional: if you prefer a pinned local CLI instead of npx
+      # - name: Install EAS CLI
+      #   run: npm i -D eas-cli
+
+      - name: Publish OTA update to 'preview'
+        env:
+          # Expo/EAS auth (use the same secret for both env names for compatibility)
+          EAS_TOKEN: ${{ secrets.EAS_TOKEN }}
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+          # Provide BASE_URL if you didn't commit a .env file
+          EXPO_PUBLIC_BASE_URL: https://wwwa-sms-demo.vercel.app
+        run: |
+          npx --yes eas-cli@latest update \
+            --branch preview \
+            --message "CI: ${GITHUB_SHA} on ${GITHUB_REF_NAME}"
