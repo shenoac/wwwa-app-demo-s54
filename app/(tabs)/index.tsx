@@ -79,7 +79,7 @@ export default function HomeScreen() {
         <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.title}>WWWA — Verify Phone</Text>
 
-          <Text style={styles.label}>Phone (E.164)</Text>
+          <Text style={styles.label}>Enter your phone number to subscribe to water outage alerts (E.164)</Text>
           <TextInput
             value={phone}
             onChangeText={setPhone}
